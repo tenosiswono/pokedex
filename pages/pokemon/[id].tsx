@@ -9,7 +9,10 @@ import Link from "next/link";
 import React from "react";
 
 export default function PokemonId({ pokemon }: { pokemon: Pokemon }) {
+  // Determine the color theme based on the Pokemon's primary type
   const colorTheme = TypeBgColor[pokemon.types[0].type.name];
+
+  // render details of pokemon
   return (
     <Layout title={`Pokedex - ${capitalizeWord(pokemon.name)}`}>
       <div
@@ -86,9 +89,16 @@ export default function PokemonId({ pokemon }: { pokemon: Pokemon }) {
   );
 }
 
+/**
+ *  
+ * the API is overfetching at this point, will trigger warning large-page-data
+ * will ignore it because it only test, real practice with proper API we should avoid over fetching
+ * 
+ * */ 
 export async function getServerSideProps({ query }: { query: { id: number } }) {
   const id = query.id;
   try {
+    // Fetch the details for Pokemon in the id.
     const pokemon = await PokemonAPI.getPokemonById(id);
     return {
       props: { pokemon },
