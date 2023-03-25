@@ -36,9 +36,9 @@ describe("Home component", () => {
 describe("getServerSideProps", () => {
   it("should return pokemon list", async () => {
     const result = await getServerSideProps();
-    expect(result?.props.nextProp).toEqual(pokemonList.next);
+    expect(result?.props?.nextProp).toEqual(pokemonList.next);
     // same pokemon x9 lol
-    expect(result?.props.pokemonsProp).toEqual([
+    expect(result?.props?.pokemonsProp).toEqual([
       pokemon,
       pokemon,
       pokemon,

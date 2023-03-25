@@ -46,15 +46,14 @@ export default function Home({
     <Layout title="Pokedex - Home">
       <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-20 mt-20 mx-5">
         {pokemons.map((pokemon, idx) => (
-          <PokemonCard key={`pokemon-${pokemon.id}-${idx}`} {...pokemon}></PokemonCard>
+          <PokemonCard
+            key={`pokemon-${pokemon.id}-${idx}`}
+            {...pokemon}
+          ></PokemonCard>
         ))}
         {loading && <Preloader />}
         {hasNext && (
-          <div
-            id="test-infinite-scroll-beacon"
-            key="anchor"
-            ref={anchorRef}
-          />
+          <div id="test-infinite-scroll-beacon" key="anchor" ref={anchorRef} />
         )}
       </div>
     </Layout>
@@ -70,7 +69,13 @@ export async function getServerSideProps() {
     return {
       props: { pokemonsProp, nextProp: response.next },
     };
-  } catch (err) {
-    console.error(err);
+  } catch (error: any) {
+    if (error.response && error.response.status === 404) {
+      return {
+        notFound: true,
+      };
+    } else {
+      throw error
+    }
   }
 }

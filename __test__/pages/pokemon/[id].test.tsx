@@ -33,6 +33,6 @@ describe("Home component", () => {
 describe("getServerSideProps", () => {
   it("should return pokemon", async () => {
     const result = await getServerSideProps({ query: { id: 10 }});
-    expect(result?.props.pokemon).toEqual(pokemon);
+    expect(result?.props?.pokemon).toEqual(pokemon);
   });
 });

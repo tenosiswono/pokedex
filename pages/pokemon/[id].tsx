@@ -57,7 +57,10 @@ export default function PokemonId({ pokemon }: { pokemon: Pokemon }) {
           </div>
           <div className="relative">
             <Image
-              src={pokemon.sprites.other?.dream_world.front_default || "/img/notfound.svg"}
+              src={
+                pokemon.sprites.other?.dream_world.front_default ||
+                "/img/notfound.svg"
+              }
               alt={pokemon.name}
               width={320}
               height={320}
@@ -90,7 +93,13 @@ export async function getServerSideProps({ query }: { query: { id: number } }) {
     return {
       props: { pokemon },
     };
-  } catch (err) {
-    console.error(err);
+  } catch (error: any) {
+    if (error.response && error.response.status === 404) {
+      return {
+        notFound: true,
+      };
+    } else {
+      throw error
+    }
   }
 }
