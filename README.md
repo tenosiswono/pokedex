@@ -21,6 +21,20 @@ yarn dev
 pnpm dev
 ```
 
+Run Jest Unit Test
+```bash
+npm run test
+#or 
+yarn test
+```
+
+Run e2e Cypress Test
+```bash
+# make sure dev server is running
+npm run cypress:run
+# or
+yarn cypress:run
+```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Learn More
